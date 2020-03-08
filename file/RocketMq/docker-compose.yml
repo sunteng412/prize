@@ -1,0 +1,53 @@
+version: '3.5'
+services:
+  rmqnamesrv:
+    image: rocketmqinc/rocketmq:4.3.0
+    container_name: rmqnamesrv
+    ports:
+      - 9876:9876
+    volumes:
+      - /mrfox/docker/rocketmq/logs/nameserver:/opt/logs
+      - /mrfox/docker/rocketmq/store/nameserver:/opt/store
+    command: sh mqnamesrv
+    networks:
+        rmq:
+          aliases:
+            - rmqnamesrv
+  rmqbroker:
+    image: rocketmqinc/rocketmq:4.3.0
+    container_name: rmqbroker
+    ports:
+      - 10911:10911
+      - 10909:10909
+      - 10907:10907
+    volumes:
+      - /mrfox/docker/rocketmq/logs/broker:/opt/logs
+      - /mrfox/docker/rocketmq/store/broker:/opt/store
+      - /mrfox/docker/rocketmq/broker.conf:/opt/rocketmq-4.3.0/conf/broker.conf
+    environment:
+        TZ: Asia/Shanghai
+        NAMESRV_ADDR: "rmqnamesrv:9876"
+        JAVA_OPTS: " -Duser.home=/opt"
+        JAVA_OPT_EXT: "-server -Xms256m -Xmx256m -Xmn256m"
+    command: sh mqbroker -n 10.211.55.4:9876 autoCreateTopicEnable=true -c /opt/rocketmq-4.3.0/conf/broker.conf &
+    links:
+      - rmqnamesrv:rmqnamesrv
+    networks:
+      rmq:
+        aliases:
+          - rmqbroker
+  rmqconsole:
+    image: styletang/rocketmq-console-ng
+    container_name: rmqconsole
+    ports:
+      - 9001:8080
+    environment:
+        JAVA_OPTS: -Drocketmq.config.namesrvAddr=rmqnamesrv:9876 -Drocketmq.namesrv.addr=rmqnamesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+    networks:
+      rmq:
+        aliases:
+          - rmqconsole
+networks:
+  rmq:
+    name: rmq
+    driver: bridge

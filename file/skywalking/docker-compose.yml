@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  oap:
+    image: apache/skywalking-oap-server:6.6.0-es7
+    container_name: oap
+    restart: always
+    ports:
+      - 11800:11800
+      - 12800:12800
+    environment:
+      TZ: Asia/Shanghai
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: 10.211.55.4:9200
+  ui:
+    image: apache/skywalking-ui:6.6.0
+    container_name: ui
+    depends_on:
+      - oap
+    links:
+      - oap
+    restart: always
+    ports:
+      - 8081:8080
+    environment:
+      TZ: Asia/Shanghai
+      collector.ribbon.listOfServers: 10.211.55.6:12800
+      SW_OAP_ADDRESS: 10.211.55.6:12800
