@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    ~ Copyright (c) 2014 杭州数梦工场科技有限公司
+-->
+
+<configuration>
+
+    <property name="APP_NAME" value="prize-app"/>
+
+    <property name="level" value="${logLevel:-info}"/>
+    <property name="tag" value="${tags:-default}"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %5level %6relative --- [%15thread] %-40logger{40} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <timestamp key="byDay" datePattern="yyyyMMdd"/>
+    <appender name="logfile" class="ch.qos.logback.core.FileAppender">
+        <file>${catalina.logs}/${APP_NAME}-${byDay}.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%date %5level %6relative --- [%15thread] %-40logger{40} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="business" level="info" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="logfile"/>
+    </logger>
+
+    <root level="${level}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="logfile"/>
+    </root>
+
+    <!--<appender name="running_log" class="com.cwbase.logback.RedisAppender">-->
+    <!--<source>${APP_NAME}</source>-->
+    <!--<tags>${tag}</tags>-->
+    <!--<host>${rLogIp:-127.0.0.1}</host>-->
+    <!--<port>${rLogPort:-00}</port>-->
+    <!--<key>running_log</key>-->
+    <!--</appender>-->
+
+    <!--<appender name="business_log" class="com.cwbase.logback.RedisAppender">-->
+    <!--<source>${APP_NAME}</source>-->
+    <!--<tags>${tag}</tags>-->
+    <!--<host>${bLogIp:-127.0.0.1}</host>-->
+    <!--<port>${bLogPort:-00}</port>-->
+    <!--<key>business_log</key>-->
+    <!--</appender>-->
+
+    <!--<root level="${level}">-->
+    <!--&lt;!&ndash;<if condition='isDefined("rLogIp")'>&ndash;&gt;-->
+    <!--&lt;!&ndash;<then>&ndash;&gt;-->
+    <!--&lt;!&ndash;<appender-ref ref="running_log"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</then>&ndash;&gt;-->
+    <!--&lt;!&ndash;</if>&ndash;&gt;-->
+    <!--<appender-ref ref="CONSOLE"/>-->
+    <!--</root>-->
+
+</configuration>

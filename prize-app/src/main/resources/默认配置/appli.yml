@@ -1,0 +1,22 @@
+server:
+  port: 8081
+  undertow:
+    direct-buffers: true
+    io-threads: 4
+    worker-threads: 160
+spring:
+  application:
+    name: prize-app
+  cloud:
+    sentinel:
+      datasource:
+        ds:
+          nacos:
+            dataId: ${spring.application.name}-sentinel-${spring.profiles.active:dev}.json
+            groupId: DEFAULT_GROUP
+            rule-type: flow
+            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      transport:
+        dashboard: ${SENTINEL-HOST:10.211.55.6}:${SENTINEL-PORT:8858}
+        #预热
+      eager: true

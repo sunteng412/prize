@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrfox.prize.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.mrfox.prize.model.User">
+    <!--@mbg.generated-->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="real_point" jdbcType="INTEGER" property="realPoint" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`,mobile,point,real_point
+  </sql>
+
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <update id="updateRealPointById">
+    update t_user set real_point = real_point + #{point,jdbcType=INTEGER} where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updatePointById">
+    update t_user set point = point - #{point,jdbcType=INTEGER},real_point = real_point - #{point,jdbcType=INTEGER} where id = #{id,jdbcType=BIGINT}
+    and point - #{point,jdbcType=INTEGER} <![CDATA[>]]> 0
+  </update>
+
+</mapper>

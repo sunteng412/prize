@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrfox.prize.mapper.ActiveAwardMapper">
+  <resultMap id="BaseResultMap" type="com.mrfox.prize.model.ActiveAward">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="active_id" jdbcType="INTEGER" property="activeId" />
+    <result column="award_id" jdbcType="INTEGER" property="awardId" />
+    <result column="award_num" jdbcType="INTEGER" property="awardNum" />
+    <result column="award_real_num" jdbcType="VARCHAR" property="awardRealNum" />
+    <result column="probability" jdbcType="DECIMAL" property="probability" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, active_id, award_id, award_num, award_real_num, probability
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_active_award
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateAwardRealNum">
+      update t_active_award set award_real_num = award_real_num - 1 where
+       award_id = #{awardId,jdbcType=BIGINT} and active_id = #{activeId,jdbcType=BIGINT} and award_real_num <![CDATA[<]]> award_num
+    </update>
+</mapper>

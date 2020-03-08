@@ -1,0 +1,20 @@
+[
+  {
+    "keyName": "cache_key",
+    "className": "com.mrfox.prize.dto.PrizeDrawDto",
+    "expireDate": 1,
+    "expireDateUnit": "M"
+  },
+  {
+    "keyName": "cache_key",
+    "className": "com.mrfox.prize.dto.PrizeDrawDto",
+    "expireDate": 1,
+    "expireDateUnit": "M"
+  },
+  {
+    "keyName": "prize_draw",
+    "className": "com.mrfox.prize.vo.PrizeDrawDetailVo",
+    "expireDate": -1,
+    "expireDateUnit": "M"
+  }
+]

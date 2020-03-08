@@ -1,0 +1,3 @@
+-javaagent:/Users/mrfox/work/command/skywalking-agent/agent/skywalking-agent.jar
+-Dskywalking.agent.service_name=prize-domain
+-Dskywalking.collector.backend_service=10.211.55.6:11800

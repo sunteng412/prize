@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrfox.prize.mapper.ActiveDrawRecordMapper">
+  <resultMap id="BaseResultMap" type="com.mrfox.prize.model.ActiveDrawRecord">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="draw_time" jdbcType="TIMESTAMP" property="drawTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="use_point" jdbcType="VARCHAR" property="usePoint" />
+    <result column="active_id" jdbcType="INTEGER" property="activeId" />
+    <result column="award_id" jdbcType="INTEGER" property="awardId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, order_id, draw_time, user_id, use_point, active_id, award_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_active_draw_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.mrfox.prize.model.ActiveDrawRecord">
+    <!--@mbg.generated-->
+    insert into t_active_draw_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="drawTime != null">
+        draw_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="usePoint != null">
+        use_point,
+      </if>
+      <if test="activeId != null">
+        active_id,
+      </if>
+      <if test="awardId != null">
+        award_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="drawTime != null">
+        #{drawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="usePoint != null">
+        #{usePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="activeId != null">
+        #{activeId,jdbcType=INTEGER},
+      </if>
+      <if test="awardId != null">
+        #{awardId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

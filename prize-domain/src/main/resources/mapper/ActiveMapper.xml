@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrfox.prize.mapper.ActiveMapper">
+    <resultMap id="BaseResultMap" type="com.mrfox.prize.model.Active">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="limit_num" jdbcType="INTEGER" property="limitNum"/>
+        <result column="limit_date_type" jdbcType="TINYINT" property="limitDateType"/>
+        <result column="limit_date_num" jdbcType="INTEGER" property="limitDateNum"/>
+        <result column="need_point_num" jdbcType="INTEGER" property="needPointNum"/>
+        <result column="effective_time_start" jdbcType="TIMESTAMP" property="effectiveTimeStart"/>
+        <result column="effective_time_end" jdbcType="TIMESTAMP" property="effectiveTimeEnd"/>
+        <result column="create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="create_at" jdbcType="TIMESTAMP" property="createAt"/>
+        <result column="update_at" jdbcType="TIMESTAMP" property="updateAt"/>
+        <result column="update_by" jdbcType="BIGINT" property="updateBy"/>
+    </resultMap>
+
+    <resultMap id="PrizeDrawDetailResultMap" type="com.mrfox.prize.vo.PrizeDrawDetailVo">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="limit_num" jdbcType="INTEGER" property="limitNum"/>
+        <result column="limit_date_type" jdbcType="TINYINT" property="limitDateType"/>
+        <result column="limit_date_num" jdbcType="INTEGER" property="limitDateNum"/>
+        <result column="need_point_num" jdbcType="INTEGER" property="needPointNum"/>
+        <result column="effective_time_start" jdbcType="TIMESTAMP" property="effectiveTimeStart"/>
+        <result column="effective_time_end" jdbcType="TIMESTAMP" property="effectiveTimeEnd"/>
+        <collection property="activePrizeDetailVoList" ofType="com.mrfox.prize.vo.ActivePrizeDetailVo">
+            <result column="award_id" jdbcType="INTEGER" property="awardId" />
+            <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
+            <result column="prize_num" jdbcType="INTEGER" property="prizeNum" />
+            <result column="prize_remain_num" jdbcType="INTEGER" property="prizeRemainNum" />
+            <result column="active_id" jdbcType="INTEGER" property="activeId" />
+            <result column="award_id" jdbcType="INTEGER" property="awardId" />
+            <result column="award_num" jdbcType="INTEGER" property="awardNum" />
+            <result column="award_real_num" jdbcType="VARCHAR" property="awardRealNum" />
+            <result column="probability" jdbcType="INTEGER" property="probability" />
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`, limit_num, limit_date_type, limit_date_num, need_point_num, effective_time_start,
+        effective_time_end, create_by, create_at, update_at, update_by
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_active
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPrizeDrawDetail" resultMap="PrizeDrawDetailResultMap" useCache="false">
+    SELECT
+    SQL_NO_CACHE
+    a.id,
+    a.limit_num,
+    a.limit_date_type ,
+    a.limit_date_num,
+    a.need_point_num,
+    a.effective_time_start,
+    a.effective_time_end,
+	aa.active_id,
+	aa.award_id,
+	aa.award_num,
+	aa.award_real_num,
+	aa.probability,
+	ap.prize_id ,
+	ap.prize_remain_num,
+	ap.prize_num
+FROM
+	t_active a,
+	t_award_prize ap,
+	t_active_award aa
+WHERE
+	a.id = aa.active_id
+	AND ap.award_id = aa.award_id
+	and a.effective_time_start <![CDATA[<]]> now() and a.effective_time_end <![CDATA[>]]> now() and aa.active_id = #{activeId,jdbcType=BIGINT}
+    </select>
+</mapper>

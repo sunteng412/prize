@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrfox.prize.mapper.AwardMapper">
+  <resultMap id="BaseResultMap" type="com.mrfox.prize.model.Award">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="total_num" jdbcType="INTEGER" property="totalNum" />
+    <result column="issue_num" jdbcType="INTEGER" property="issueNum" />
+    <result column="useable_num" jdbcType="INTEGER" property="useableNum" />
+    <result column="detail_describe" jdbcType="VARCHAR" property="detailDescribe" />
+    <result column="effective_time_start" jdbcType="TIMESTAMP" property="effectiveTimeStart" />
+    <result column="effective_time_end" jdbcType="TIMESTAMP" property="effectiveTimeEnd" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, `describe`, img, total_num, issue_num, useable_num, detail_describe, 
+    effective_time_start, effective_time_end, create_by, create_at, update_at, update_by
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_award
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <update id="updateIssueNum">
+     update t_award set issue_num = issue_num + 1 where
+       id = #{id,jdbcType=BIGINT} and total_num <![CDATA[<=]]> issue_num + useable_num
+  </update>
+</mapper>

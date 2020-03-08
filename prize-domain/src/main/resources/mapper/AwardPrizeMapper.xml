@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrfox.prize.mapper.AwardPrizeMapper">
+  <resultMap id="BaseResultMap" type="com.mrfox.prize.model.AwardPrize">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="award_id" jdbcType="INTEGER" property="awardId" />
+    <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
+    <result column="prize_num" jdbcType="INTEGER" property="prizeNum" />
+    <result column="prize_remain_num" jdbcType="INTEGER" property="prizeRemainNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, award_id, prize_id, prize_num, prize_remain_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_award_prize
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <update id="updatePrizeRemainNum">
+      update t_award_prize set prize_remain_num = prize_remain_num - 1 where
+       award_id = #{awardId,jdbcType=BIGINT} and prize_remain_num <![CDATA[<]]> prize_num
+    </update>
+</mapper>

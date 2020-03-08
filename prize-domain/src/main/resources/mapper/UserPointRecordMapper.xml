@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mrfox.prize.mapper.UserPointRecordMapper">
+  <resultMap id="BaseResultMap" type="com.mrfox.prize.model.UserPointRecord">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="business_no" jdbcType="VARCHAR" property="businessNo" />
+    <result column="business_type" jdbcType="TINYINT" property="businessType" />
+    <result column="use_point" jdbcType="INTEGER" property="usePoint" />
+    <result column="handle_time" jdbcType="TIMESTAMP" property="handleTime" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="delete_flag" jdbcType="TINYINT" property="deleteFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, business_no, business_type, use_point, handle_time, `type`, delete_flag
+  </sql>
+
+
+  <insert id="insertRecord" parameterType="com.mrfox.prize.model.UserPointRecord">
+    <!--@mbg.generated-->
+    insert into t_user_point_record (
+    user_id, business_no, business_type, use_point, handle_time, `type`
+    )
+    values ( #{userPointRecord.userId,jdbcType=INTEGER} ,#{userPointRecord.businessNo,jdbcType=INTEGER} ,#{userPointRecord.businessType,jdbcType=INTEGER} ,
+    #{userPointRecord.usePoint,jdbcType=INTEGER} ,#{userPointRecord.handleTime,jdbcType=TIMESTAMP} ,#{userPointRecord.type,jdbcType=INTEGER} )
+  </insert>
+</mapper>
