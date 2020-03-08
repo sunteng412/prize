@@ -21,6 +21,8 @@ SpringCloud Alibaba 2.1.0.RELEASE + spring.boot2.2.4.RELEASE  + druid + mybatis
 | prize-dependencies | 顶层依赖 |
 | prize-domain | 服务提供方 |
 
-后续项目整体架构
-
+后续项目整体数据架构
+![image](https://github.com/sunteng412/prize/blob/master/file/WX20200308-170208%402x.png)
+抽奖接口逻辑
+![image](https://github.com/sunteng412/prize/blob/master/file/WX20200308-171333%402x.png)
 后期扩展
