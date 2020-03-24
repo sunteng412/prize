@@ -29,5 +29,5 @@ nacos配置在各个模块下的resources
 
 
 抽奖接口逻辑
-![image](https://github.com/sunteng412/prize/blob/master/file/WX20200308-170208%402x.png)
+![image](https://github.com/sunteng412/prize/blob/master/file/WX20200324-113124@2x.png)
 后期扩展
